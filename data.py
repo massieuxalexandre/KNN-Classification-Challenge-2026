@@ -4,11 +4,12 @@ import numpy as np
 import pandas as pd
 
 class Data:
-    def __init__(self, data, label_col='label'):
+    def __init__(self, data, label_col):
         self.data = data 
         self.data_train = None 
         self.data_test = None 
         self.data_labels = None
+        self.data_test_labels = None
         self.label_col = label_col
         self.cpt = 0
 
@@ -20,11 +21,13 @@ class Data:
         start = int(tab[self.cpt][0] * length)
         end = int(tab[self.cpt][1] * length)
 
-        self.data_train = self.data.iloc[start:end, :]
+        self.data_train = self.data.iloc[start:end, :].drop(columns=[self.label_col])
         self.data_labels = self.data.iloc[start:end][self.label_col]
 
-        self.data_test = self.data.iloc[0:start, :]
-        self.data_test = pd.concat([self.data_test, self.data.iloc[end:, :]])
+        test_part1 = self.data.iloc[0:start, :]
+        test_part2 = self.data.iloc[end:, :]
+        self.data_test_labels = pd.concat([test_part1[self.label_col], test_part2[self.label_col]])
+        self.data_test = pd.concat([test_part1.drop(columns=[self.label_col]), test_part2.drop(columns=[self.label_col])])
 
         self.cpt += 1
 
@@ -37,6 +40,12 @@ class Data:
     
     def get_data_labels(self):
         return self.data_labels
+    
+    def get_data_test_labels(self):
+        return self.data_test_labels
+    
+    def get_label_col(self):
+        return self.label_col
 
     
 
