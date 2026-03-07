@@ -44,6 +44,9 @@ class Data:
     
     def get_label_col(self):
         return self.label_col
+    
+    def get_data(self):
+        return self.data
 
     
 
