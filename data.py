@@ -1,5 +1,3 @@
-from main import *
-from knn import *
 import numpy as np
 import pandas as pd
 
@@ -17,7 +15,7 @@ class Data:
     def set_train_test(self):
         length = self.data.shape[0]
         tab = [(0, 0.8), (0.1, 0.9), (0.2, 1)]
-        # tab = [(0, 0.7), (0.2, 0.9), (0.3, 1)]
+        # tab = [(0, 0.74), (0.16, 0.9), (0.26, 1)]
         start = int(tab[self.cpt][0] * length)
         end = int(tab[self.cpt][1] * length)
 

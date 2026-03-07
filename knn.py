@@ -1,5 +1,3 @@
-from main import *
-from data import *
 import numpy as np
 import pandas as pd
 
@@ -11,10 +9,10 @@ class Knn:
         self.data_labels = data_labels
 
     def euclidean_distance(self, x_1, x_2):
-        return np.sqrt(np.sum((np.array(x_1[:-1]) - np.array(x_2[:-1]))**2))
+        return np.sqrt(np.sum((np.array(x_1) - np.array(x_2))**2))
     
     def manhattan_distance(self, x_1, x_2):
-        return np.sum(np.abs(np.array(x_1[:-1]) - np.array(x_2[:-1])))
+        return np.sum(np.abs(np.array(x_1) - np.array(x_2)))
     
     
     def knn_prediction(self, point_test):
