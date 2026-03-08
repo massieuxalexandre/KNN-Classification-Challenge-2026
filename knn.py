@@ -30,3 +30,4 @@ class Knn:
             top_k.append(label)
 
         return max(set(top_k), key=top_k.count)
+

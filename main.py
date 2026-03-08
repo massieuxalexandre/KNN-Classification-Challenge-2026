@@ -10,7 +10,7 @@ if __name__ == "__main__":
     df_test = pd.read_csv("test.csv")
     data = Data(df, "Id", "Label")
     data_final = Data_final(df, df_test, "Id", "Label")
-    k = 3
+    k = 11
     accuracy = []
     print("3 test pour trouver les meilleurs settings :")
     for j in range(3):
