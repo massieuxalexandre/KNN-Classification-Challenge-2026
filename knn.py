@@ -8,6 +8,7 @@ class Knn:
         self.data_test = data_test
         self.data_labels = data_labels
 
+  
     def euclidean_distance(self, x_1, x_2):
         return np.sqrt(np.sum((np.array(x_1) - np.array(x_2))**2))
     
@@ -19,8 +20,8 @@ class Knn:
         distances = []
 
         for i in range(len(self.data_train)):
-            # dist = self.euclidean_distance(point_test, self.data_train.iloc[i])
-            dist = self.manhattan_distance(point_test, self.data_train.iloc[i])
+            dist = self.euclidean_distance(point_test, self.data_train.iloc[i])
+            # dist = self.manhattan_distance(point_test, self.data_train.iloc[i])
             distances.append((dist, self.data_labels.iloc[i]))
 
         distances.sort(key=lambda x: x[0])

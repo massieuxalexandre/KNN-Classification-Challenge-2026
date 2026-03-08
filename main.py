@@ -13,7 +13,7 @@ if __name__ == "__main__":
     data = Data(df, "Id", "Label")
     # data_test = Data(df_test, "Label")
     # data = Data(df, "Iris-setosa")
-    k = 3
+    k = 5
     accuracy = []
     print("3 test pour trouver les meilleurs settings :")
     for j in range(3):
@@ -36,6 +36,17 @@ if __name__ == "__main__":
         print("accuracy test n°", j+1, " : ", accuracy[j]*100, " %", sep="")
         print()
 
+    total_final = 0
+    good_final = 0
+    best = accuracy.index(max(accuracy))
+    print("reentrainemnt avec les meilleurs settings :")
+    data.set_train_test(best)
+    for i in range(len(data.get_data_test())):
+        total_final += 1
+        if (data.get_data_test_labels().iloc[i] == knn.knn_prediction(data.get_data_test().iloc[i])):
+            good_final += 1
+    accuracy_final = good_final / total_final
+    print("accuracy : ", accuracy_final*100, " %", sep="")
 
     print("test final :")
     knn = Knn(k, data.get_data_train(), df_test.iloc[:, 1:], data.get_data_labels())

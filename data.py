@@ -15,8 +15,10 @@ class Data:
 
     def set_train_test(self, j):
         length = self.data.shape[0]
-        tab = [(0, 0.8), (0.1, 0.9), (0.2, 1)]
+        # tab = [(0, 0.8), (0.1, 0.9), (0.2, 1)]
         # tab = [(0, 0.74), (0.16, 0.9), (0.26, 1)]
+        # tab = [(0, 0.7), (0.15, 0.85), (0.3, 1)]
+        tab = [(0, 0.9), (0.05, 0.95), (0.1, 1)]
         start = int(tab[j][0] * length)
         end = int(tab[j][1] * length)
 
