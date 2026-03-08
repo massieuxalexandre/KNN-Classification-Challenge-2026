@@ -12,6 +12,22 @@ class Data:
         self.label_col = label_col
         self.id_col = id_col
 
+    def normalize(self, data_train, data_test):
+        # moyenne = data_train.mean()
+        # ecart_type = data_train.std()
+        
+        # data_train = (data_train - moyenne) / ecart_type
+        # data_test = (data_test - moyenne) / ecart_type
+
+        val_min = data_train.min()
+        val_max = data_train.max()
+
+        data_train = (data_train - val_min) / (val_max - val_min)
+        data_test = (data_test - val_min) / (val_max - val_min)
+
+        return data_train, data_test
+    
+
 
     def set_train_test(self, j):
         length = self.data.shape[0]
@@ -33,20 +49,8 @@ class Data:
         self.data_test_id = pd.concat([test_part1[self.id_col], test_part2[self.id_col]])
         self.data_test = pd.concat([test_part1.drop(columns=[self.id_col, self.label_col]), test_part2.drop(columns=[self.id_col, self.label_col])])
 
-        # moyenne = self.data_train.mean()
-        # ecart_type = self.data_train.std()
-        
-        # self.data_train = (self.data_train - moyenne) / ecart_type
-        # self.data_test = (self.data_test - moyenne) / ecart_type
 
-        # Au lieu de moyenne et ecart_type, on utilise min et max
-        val_min = self.data_train.min()
-        val_max = self.data_train.max()
-
-        self.data_train = (self.data_train - val_min) / (val_max - val_min)
-        self.data_test = (self.data_test - val_min) / (val_max - val_min)
-
-
+        self.data_train, self.data_test = self.normalize(self.data_train, self.data_test)
 
 
     def get_data_train(self):
@@ -66,3 +70,25 @@ class Data:
     
     def get_id_col(self):
         return self.id_col
+
+
+
+class Data_final(Data):
+    def __init__(self, data_train, data_test, id_col, label_col):
+        super().__init__(data_train, id_col, label_col)
+        self.data_train = data_train
+        self.data_test = data_test
+
+
+    def set_train_test_final(self):
+        self.data_id = self.data_train[self.id_col]
+        self.data_labels = self.data_train[self.label_col]
+        self.data_test_id = self.data_test[self.id_col]
+
+        self.data_train = self.data_train.drop(columns=[self.id_col, self.label_col])
+        self.data_test = self.data_test.drop(columns=[self.id_col])
+
+        self.data_train, self.data_test = self.normalize(self.data_train, self.data_test)
+
+    def get_data_test_id(self):
+        return self.data_test_id
