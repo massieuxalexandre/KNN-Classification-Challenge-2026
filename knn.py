@@ -20,8 +20,8 @@ class Knn:
         distances = []
 
         for i in range(len(self.data_train)):
-            dist = self.euclidean_distance(point_test, self.data_train.iloc[i])
-            # dist = self.manhattan_distance(point_test, self.data_train.iloc[i])
+            # dist = self.euclidean_distance(point_test, self.data_train.iloc[i])
+            dist = self.manhattan_distance(point_test, self.data_train.iloc[i])
             distances.append((dist, self.data_labels.iloc[i]))
 
         distances.sort(key=lambda x: x[0])

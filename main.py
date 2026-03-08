@@ -13,7 +13,7 @@ if __name__ == "__main__":
     data = Data(df, "Id", "Label")
     # data_test = Data(df_test, "Label")
     # data = Data(df, "Iris-setosa")
-    k = 5
+    k = 3
     accuracy = []
     print("3 test pour trouver les meilleurs settings :")
     for j in range(3):
@@ -41,18 +41,45 @@ if __name__ == "__main__":
     best = accuracy.index(max(accuracy))
     print("reentrainemnt avec les meilleurs settings :")
     data.set_train_test(best)
+    knn = Knn(k, data.get_data_train(), data.get_data_test(), data.get_data_labels())
     for i in range(len(data.get_data_test())):
         total_final += 1
         if (data.get_data_test_labels().iloc[i] == knn.knn_prediction(data.get_data_test().iloc[i])):
             good_final += 1
     accuracy_final = good_final / total_final
     print("accuracy : ", accuracy_final*100, " %", sep="")
+    print()
+
 
     print("test final :")
-    knn = Knn(k, data.get_data_train(), df_test.iloc[:, 1:], data.get_data_labels())
+    # knn = Knn(k, df.iloc[:, 1:], df_test.iloc[:, 1:], df["Label"])
+    # for i in range(len(df_test)):
+    #     guess[df_test.iloc[i, 0]] = knn.knn_prediction(df_test.iloc[i, 1:])
+
+    # df_final = pd.DataFrame(list(guess.items()), columns=["Id", "Label"])
+    # print(df_final)
+    # df_final.to_csv("guess_final.csv", index=False)
+
+    # print("test final (Soumission Kaggle) :")
+    
+
+    X_train_final = df.drop(columns=["Id", "Label"])
+    y_train_final = df["Label"]
+    
+    X_test_final = df_test.drop(columns=["Id"])
+
+    val_min = X_train_final.min()
+    val_max = X_train_final.max()
+    
+    X_train_final = (X_train_final - val_min) / (val_max - val_min)
+    X_test_final = (X_test_final - val_min) / (val_max - val_min)
+
+    knn_final = Knn(k, X_train_final, X_test_final, y_train_final)
+    
+    guess = dict()
     for i in range(len(df_test)):
-        guess[df_test.iloc[i, 0]] = knn.knn_prediction(df_test.iloc[i, 1:])
+        guess[df_test.iloc[i, 0]] = knn_final.knn_prediction(X_test_final.iloc[i, :])
 
     df_final = pd.DataFrame(list(guess.items()), columns=["Id", "Label"])
-    print(df_final)
+    print(df_final.head())
     df_final.to_csv("guess_final.csv", index=False)
