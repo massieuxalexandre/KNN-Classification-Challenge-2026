@@ -19,33 +19,33 @@ class Data:
         # data_train = (data_train - moyenne) / ecart_type
         # data_test = (data_test - moyenne) / ecart_type
 
-        # val_min = data_train.min()
-        # val_max = data_train.max()
+        val_min = data_train.min()
+        val_max = data_train.max()
 
-        # data_train = (data_train - val_min) / (val_max - val_min)
-        # data_test = (data_test - val_min) / (val_max - val_min)
+        data_train = (data_train - val_min) / (val_max - val_min)
+        data_test = (data_test - val_min) / (val_max - val_min)
 
-        mediane = data_train.median()
-        # L'IQR (Écart interquartile) représente les 50% des données au centre, en ignorant les extrêmes
-        iqr = data_train.quantile(0.75) - data_train.quantile(0.25)
-        
-        # Sécurité : Si une colonne a beaucoup de valeurs identiques, l'IQR peut être 0. 
-        # On remplace les 0 par 1 pour éviter que Python plante (division par zéro).
-        iqr = iqr.replace(0, 1)
+        # mediane = data_train.median()
+        # iqr = data_train.quantile(0.75) - data_train.quantile(0.25)
+        # iqr = iqr.replace(0, 1)
 
-        data_train = (data_train - mediane) / iqr
-        data_test = (data_test - mediane) / iqr
+        # data_train = (data_train - mediane) / iqr
+        # data_test = (data_test - mediane) / iqr
+
+        data_train = (data_train - data_train.median()) / data_train.std()
+        data_test = (data_test - data_test.median()) / data_test.std()
 
         return data_train, data_test
+
     
 
 
     def set_train_test(self, j):
         length = self.data.shape[0]
-        # tab = [(0, 0.8), (0.1, 0.9), (0.2, 1)]
+        tab = [(0, 0.8), (0.1, 0.9), (0.2, 1)]
         # tab = [(0, 0.74), (0.16, 0.9), (0.26, 1)]
         # tab = [(0, 0.7), (0.15, 0.85), (0.3, 1)]
-        tab = [(0, 0.9), (0.05, 0.95), (0.1, 1)]
+        # tab = [(0, 0.9), (0.05, 0.95), (0.1, 1)]
         # tab = [(0, 0.85), (0.1, 0.95), (0.15, 1)]
         start = int(tab[j][0] * length)
         end = int(tab[j][1] * length)

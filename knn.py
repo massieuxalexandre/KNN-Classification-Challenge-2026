@@ -15,7 +15,7 @@ class Knn:
     def manhattan_distance(self, x_1, x_2):
         return np.sum(np.abs(np.array(x_1) - np.array(x_2)))
     
-    
+
     def knn_prediction(self, point_test):
         distances = []
 
@@ -25,9 +25,20 @@ class Knn:
             distances.append((dist, self.data_labels.iloc[i]))
 
         distances.sort(key=lambda x: x[0])
-        top_k = []
-        for (distance, label) in distances[:self.k]:
-            top_k.append(label)
+        
+        # top_k = []
+        # for (distance, label) in distances[:self.k]:
+        #     top_k.append(label)
 
-        return max(set(top_k), key=top_k.count)
+        votes = {}
+        for (distance, label) in distances[:self.k]:
+            cost = 1 / (distance**2 + 1e-10) # pour pas div par 0
+
+            if label in votes:
+                votes[label] += cost
+            else:
+                votes[label] = cost
+
+        # return max(set(top_k), key=top_k.count)
+        return max(votes, key=votes.get)
 
