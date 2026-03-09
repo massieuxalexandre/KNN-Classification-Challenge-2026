@@ -19,11 +19,22 @@ class Data:
         # data_train = (data_train - moyenne) / ecart_type
         # data_test = (data_test - moyenne) / ecart_type
 
-        val_min = data_train.min()
-        val_max = data_train.max()
+        # val_min = data_train.min()
+        # val_max = data_train.max()
 
-        data_train = (data_train - val_min) / (val_max - val_min)
-        data_test = (data_test - val_min) / (val_max - val_min)
+        # data_train = (data_train - val_min) / (val_max - val_min)
+        # data_test = (data_test - val_min) / (val_max - val_min)
+
+        mediane = data_train.median()
+        # L'IQR (Écart interquartile) représente les 50% des données au centre, en ignorant les extrêmes
+        iqr = data_train.quantile(0.75) - data_train.quantile(0.25)
+        
+        # Sécurité : Si une colonne a beaucoup de valeurs identiques, l'IQR peut être 0. 
+        # On remplace les 0 par 1 pour éviter que Python plante (division par zéro).
+        iqr = iqr.replace(0, 1)
+
+        data_train = (data_train - mediane) / iqr
+        data_test = (data_test - mediane) / iqr
 
         return data_train, data_test
     
