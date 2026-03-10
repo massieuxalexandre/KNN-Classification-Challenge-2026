@@ -9,7 +9,7 @@ if __name__ == "__main__":
     df_train = pd.read_csv("train.csv")
     df_test = pd.read_csv("test.csv")
     data = Data(df_train, "Id", "Label")
-    k = 3
+    k = 5
     accuracy = []
     print("3 test locaux (differents splits) :")
     for j in range(3):

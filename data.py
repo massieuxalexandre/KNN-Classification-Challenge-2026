@@ -12,28 +12,43 @@ class Data:
         self.label_col = label_col
         self.id_col = id_col
 
-    def normalize(self, data_train, data_test):
-        # moyenne = data_train.mean()
-        # ecart_type = data_train.std()
+    # def normalize(self, data_train, data_test):
+    #     # moyenne = data_train.mean()
+    #     # ecart_type = data_train.std()
         
-        # data_train = (data_train - moyenne) / ecart_type
-        # data_test = (data_test - moyenne) / ecart_type
+    #     # data_train = (data_train - moyenne) / ecart_type
+    #     # data_test = (data_test - moyenne) / ecart_type
 
-        val_min = data_train.min()
-        val_max = data_train.max()
+    #     val_min = data_train.min()
+    #     val_max = data_train.max()
 
-        data_train = (data_train - val_min) / (val_max - val_min)
-        data_test = (data_test - val_min) / (val_max - val_min)
+    #     data_train = (data_train - val_min) / (val_max - val_min)
+    #     data_test = (data_test - val_min) / (val_max - val_min)
 
-        # mediane = data_train.median()
-        # iqr = data_train.quantile(0.75) - data_train.quantile(0.25)
-        # iqr = iqr.replace(0, 1)
+    #     # mediane = data_train.median()
+    #     # iqr = data_train.quantile(0.75) - data_train.quantile(0.25)
+    #     # iqr = iqr.replace(0, 1)
 
-        # data_train = (data_train - mediane) / iqr
-        # data_test = (data_test - mediane) / iqr
+    #     # data_train = (data_train - mediane) / iqr
+    #     # data_test = (data_test - mediane) / iqr
 
-        # data_train = (data_train - data_train.median()) / data_train.std()
-        # data_test = (data_test - data_test.median()) / data_test.std()
+    #     # data_train = (data_train - data_train.median()) / data_train.std()
+    #     # data_test = (data_test - data_test.median()) / data_test.std()
+
+    #     return data_train, data_test
+
+    def normalize(self, data_train, data_test):
+        # 1. On calcule la moyenne et l'écart-type UNIQUEMENT sur l'entraînement
+        moyenne = data_train.mean()
+        ecart_type = data_train.std()
+        
+        # Petite sécurité : si une colonne a une valeur constante, son écart-type est 0.
+        # On remplace 0 par 1 pour éviter de diviser par zéro et créer des NaN (Not a Number).
+        # ecart_type = ecart_type.replace(0, 1)
+
+        # 2. On applique la transformation sur le train ET sur le test
+        data_train = (data_train - moyenne) / (ecart_type + 1e-10) # pour éviter les NaN
+        data_test = (data_test - moyenne) / (ecart_type + 1e-10) # pour éviter les NaN
 
         return data_train, data_test
 
