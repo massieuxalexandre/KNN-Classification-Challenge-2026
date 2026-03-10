@@ -9,7 +9,7 @@ if __name__ == "__main__":
     df_train = pd.read_csv("train.csv")
     df_test = pd.read_csv("test.csv")
     data = Data(df_train, "Id", "Label")
-    k = 5
+    k = 1
     accuracy = []
     print("3 test locaux (differents splits) :")
     for j in range(3):
@@ -39,16 +39,16 @@ if __name__ == "__main__":
 
 
     # test final en s'entrainant sur tout le train
-    print("test final :")
-    data_final = Data_final(df_train, df_test, "Id", "Label")
-    data_final.set_train_test_final()
+    # print("test final :")
+    # data_final = Data_final(df_train, df_test, "Id", "Label")
+    # data_final.set_train_test_final()
     
-    guess_final = dict()
-    knn = Knn(k, data_final.get_data_train(), data_final.get_data_test(), data_final.get_data_labels())
-    for i in range(len(data_final.get_data_test())):
-        guess_final[data_final.get_data_test_id().iloc[i]] = knn.knn_prediction(data_final.get_data_test().iloc[i])
+    # guess_final = dict()
+    # knn = Knn(k, data_final.get_data_train(), data_final.get_data_test(), data_final.get_data_labels())
+    # for i in range(len(data_final.get_data_test())):
+    #     guess_final[data_final.get_data_test_id().iloc[i]] = knn.knn_prediction(data_final.get_data_test().iloc[i])
 
-    df_final = pd.DataFrame(list(guess_final.items()), columns=["Id", "Label"])
-    print(df_final)
-    df_final.to_csv("guess_final.csv", index=False)
+    # df_final = pd.DataFrame(list(guess_final.items()), columns=["Id", "Label"])
+    # print(df_final)
+    # df_final.to_csv("guess_final.csv", index=False)
 
