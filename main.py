@@ -11,7 +11,7 @@ if __name__ == "__main__":
     data = Data(df_train, "Id", "Label")
     k = 3
     accuracy = []
-    print("3 test pour trouver les meilleurs settings :")
+    print("3 test locaux (differents splits) :")
     for j in range(3):
         good = 0
         total = 0
@@ -38,8 +38,8 @@ if __name__ == "__main__":
 
 
 
-    print("test final :")
     # test final en s'entrainant sur tout le train
+    print("test final :")
     data_final = Data_final(df_train, df_test, "Id", "Label")
     data_final.set_train_test_final()
     
