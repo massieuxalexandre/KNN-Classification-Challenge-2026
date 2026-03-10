@@ -32,8 +32,8 @@ class Data:
         # data_train = (data_train - mediane) / iqr
         # data_test = (data_test - mediane) / iqr
 
-        data_train = (data_train - data_train.median()) / data_train.std()
-        data_test = (data_test - data_test.median()) / data_test.std()
+        # data_train = (data_train - data_train.median()) / data_train.std()
+        # data_test = (data_test - data_test.median()) / data_test.std()
 
         return data_train, data_test
 
