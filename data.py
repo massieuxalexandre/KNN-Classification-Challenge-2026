@@ -13,6 +13,7 @@ class Data:
         self.id_col = id_col
         self.useless_col = [id_col, label_col]
 
+
     def normalize(self, data_train, data_test):
         # moyenne = data_train.mean()
         # ecart_type = data_train.std()
@@ -26,19 +27,8 @@ class Data:
         data_train = (data_train - val_min) / (val_max - val_min)
         data_test = (data_test - val_min) / (val_max - val_min)
 
-        # mediane = data_train.median()
-        # iqr = data_train.quantile(0.75) - data_train.quantile(0.25)
-        # iqr = iqr.replace(0, 1)
-
-        # data_train = (data_train - mediane) / iqr
-        # data_test = (data_test - mediane) / iqr
-
-        # data_train = (data_train - data_train.median()) / data_train.std()
-        # data_test = (data_test - data_test.median()) / data_test.std()
-
         return data_train, data_test
-
-
+    
     
 
 
@@ -47,9 +37,9 @@ class Data:
             self.useless_col.append(u_col)
         
         length = self.data.shape[0]
-        tab = [(0, 0.8), (0.1, 0.9), (0.2, 1)]
+        # tab = [(0, 0.8), (0.1, 0.9), (0.2, 1)]
         # tab = [(0, 0.74), (0.16, 0.9), (0.26, 1)]
-        # tab = [(0, 0.7), (0.15, 0.85), (0.3, 1)]
+        tab = [(0, 0.7), (0.15, 0.85), (0.3, 1)]
         # tab = [(0, 0.9), (0.05, 0.95), (0.1, 1)]
         # tab = [(0, 0.85), (0.1, 0.95), (0.15, 1)]
         start = int(tab[j][0] * length)
@@ -96,19 +86,6 @@ class Data_final(Data):
         self.data_test = data_test
         self.useless_col = [id_col, label_col]
 
-
-    # def set_train_test_final(self, u_col=None):
-    #     if u_col is not None:
-    #         self.useless_col.append(u_col)
-
-    #     self.data_id = self.data_train[self.id_col]
-    #     self.data_labels = self.data_train[self.label_col]
-    #     self.data_test_id = self.data_test[self.id_col]
-
-    #     self.data_train = self.data_train.drop(columns=self.useless_col)
-    #     self.data_test = self.data_test.drop(columns=self.id_col + u_col)
-
-    #     self.data_train, self.data_test = self.normalize(self.data_train, self.data_test)
 
     def set_train_test_final(self, u_col=None):
         cols_drop_train = [self.id_col, self.label_col]
