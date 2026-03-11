@@ -9,7 +9,7 @@ if __name__ == "__main__":
     df_train = pd.read_csv("train.csv")
     df_test = pd.read_csv("test.csv")
     data = Data(df_train, "Id", "Label")
-    k = 3
+    k = 1
     accuracy = []
     print("3 test locaux (differents splits) :")
     for j in range(3):
@@ -17,7 +17,7 @@ if __name__ == "__main__":
         total = 0
         guess = dict()
 
-        data.set_train_test(j, u_col="C5")
+        data.set_train_test(j)
         knn = Knn(k, data.get_data_train(), data.get_data_test(), data.get_data_labels())
 
         print("test n°", j+1, " : ", sep="")
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     # test final en s'entrainant sur tout le train
     print("test final :")
     data_final = Data_final(df_train, df_test, "Id", "Label")
-    data_final.set_train_test_final(u_col="C5")
+    data_final.set_train_test_final()
     
     guess_final = dict()
     knn = Knn(k, data_final.get_data_train(), data_final.get_data_test(), data_final.get_data_labels())
