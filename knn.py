@@ -41,4 +41,3 @@ class Knn:
 
         # return max(set(top_k), key=top_k.count)
         return max(votes, key=votes.get)
-
