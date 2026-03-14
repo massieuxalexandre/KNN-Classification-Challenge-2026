@@ -1,13 +1,13 @@
 import numpy as np
 import pandas as pd
 
-from knn import *
-from data import *
+from data import Data, Data_final
+from knn import Knn
 
 
 if __name__ == "__main__":
-    df_train = pd.read_csv("train.csv")
-    df_test = pd.read_csv("test.csv")
+    df_train = pd.read_csv("data/train.csv")
+    df_test = pd.read_csv("data/test.csv")
     data = Data(df_train, "Id", "Label")
     k = 1
     accuracy = []

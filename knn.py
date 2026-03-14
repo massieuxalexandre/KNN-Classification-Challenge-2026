@@ -15,6 +15,9 @@ class Knn:
     def manhattan_distance(self, x_1, x_2):
         return np.sum(np.abs(np.array(x_1) - np.array(x_2)))
     
+    def minkowski_distance(self, x_1, x_2, p):
+        return np.sum(np.abs(np.array(x_1) - np.array(x_2))**p)**(1/p)
+    
 
     def knn_prediction(self, point_test):
         distances = []
@@ -22,6 +25,7 @@ class Knn:
         for i in range(len(self.data_train)):
             # dist = self.euclidean_distance(point_test, self.data_train.iloc[i])
             dist = self.manhattan_distance(point_test, self.data_train.iloc[i])
+            # dist = self.minkowski_distance(point_test, self.data_train.iloc[i], p=3)
             distances.append((dist, self.data_labels.iloc[i]))
 
         distances.sort(key=lambda x: x[0])
