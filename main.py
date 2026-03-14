@@ -15,8 +15,6 @@ if __name__ == "__main__":
     for j in range(3):
         good = 0
         total = 0
-        guess = dict()
-
         data.set_train_test(j)
         knn = Knn(k, data.get_data_train(), data.get_data_test(), data.get_data_labels())
 
