@@ -5,7 +5,7 @@ from data import Data, Data_final
 from knn import Knn
 
 
-if __name__ == "__main__":
+def main():
     df_train = pd.read_csv("data/train.csv")
     df_test = pd.read_csv("data/test.csv")
     data = Data(df_train, "Id", "Label")
@@ -50,3 +50,5 @@ if __name__ == "__main__":
     print(df_final)
     df_final.to_csv("guess_final.csv", index=False)
 
+if __name__ == "__main__":
+    main()
